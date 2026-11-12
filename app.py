@@ -13,9 +13,17 @@ def dashboard():
         "threat_hits": 11
     }
 
+    severity_data = {
+        "Low": 25,
+        "Medium": 40,
+        "High": 35,
+        "Critical": 24
+    }
+
     return render_template(
         "index.html",
-        metrics=metrics
+        metrics=metrics,
+        severity_data=severity_data
     )
 
 
