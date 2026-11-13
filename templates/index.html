@@ -34,13 +34,18 @@
 
     </div>
 
+    <!-- Metric Cards -->
+
     <div class="row g-4">
 
         <div class="col-md-3">
             <div class="card metric-card">
                 <div class="card-body text-center">
+
                     <h6>Total Alerts</h6>
+
                     <h2>{{ metrics.total_alerts }}</h2>
+
                 </div>
             </div>
         </div>
@@ -48,8 +53,11 @@
         <div class="col-md-3">
             <div class="card metric-card">
                 <div class="card-body text-center">
+
                     <h6>Open Cases</h6>
+
                     <h2>{{ metrics.open_cases }}</h2>
+
                 </div>
             </div>
         </div>
@@ -57,8 +65,11 @@
         <div class="col-md-3">
             <div class="card metric-card">
                 <div class="card-body text-center">
+
                     <h6>Critical Alerts</h6>
+
                     <h2>{{ metrics.critical_alerts }}</h2>
+
                 </div>
             </div>
         </div>
@@ -66,13 +77,18 @@
         <div class="col-md-3">
             <div class="card metric-card">
                 <div class="card-body text-center">
+
                     <h6>Threat Intel Hits</h6>
+
                     <h2>{{ metrics.threat_hits }}</h2>
+
                 </div>
             </div>
         </div>
 
     </div>
+
+    <!-- Severity Distribution -->
 
     <div class="row mt-5">
 
@@ -96,6 +112,8 @@
 
     </div>
 
+    <!-- Alert Trends -->
+
     <div class="row mt-5">
 
         <div class="col-lg-10 mx-auto">
@@ -118,9 +136,35 @@
 
     </div>
 
+    <!-- Case Status Monitoring -->
+
+    <div class="row mt-5">
+
+        <div class="col-lg-10 mx-auto">
+
+            <div class="card chart-card">
+
+                <div class="card-body">
+
+                    <h4 class="text-center mb-4">
+                        Case Status Monitoring
+                    </h4>
+
+                    <canvas id="statusChart"></canvas>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
 </div>
 
 <script>
+
+// Severity Pie Chart
 
 const severityCtx = document.getElementById("severityChart");
 
@@ -177,6 +221,8 @@ new Chart(severityCtx, {
 });
 
 
+// Alert Trends Line Chart
+
 const trendCtx = document.getElementById("trendChart");
 
 new Chart(trendCtx, {
@@ -195,7 +241,7 @@ new Chart(trendCtx, {
 
             borderColor: "#0d6efd",
 
-            backgroundColor: "rgba(13, 110, 253, 0.2)",
+            backgroundColor: "rgba(13,110,253,0.2)",
 
             borderWidth: 3,
 
@@ -215,6 +261,52 @@ new Chart(trendCtx, {
 
             legend: {
                 display: true
+            }
+
+        }
+
+    }
+
+});
+
+
+// Case Status Monitoring
+
+const statusCtx = document.getElementById("statusChart");
+
+new Chart(statusCtx, {
+
+    type: "bar",
+
+    data: {
+
+        labels: {{ case_status_data["statuses"] | tojson }},
+
+        datasets: [{
+
+            label: "Cases",
+
+            data: {{ case_status_data["counts"] | tojson }},
+
+            backgroundColor: [
+                "#0d6efd",
+                "#ffc107",
+                "#fd7e14",
+                "#198754"
+            ]
+
+        }]
+
+    },
+
+    options: {
+
+        responsive: true,
+
+        scales: {
+
+            y: {
+                beginAtZero: true
             }
 
         }
