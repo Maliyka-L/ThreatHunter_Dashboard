@@ -20,10 +20,16 @@ def dashboard():
         "Critical": 24
     }
 
+    alert_trends = {
+        "days": ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+        "alerts": [12, 18, 24, 16, 30, 27, 20]
+    }
+
     return render_template(
         "index.html",
         metrics=metrics,
-        severity_data=severity_data
+        severity_data=severity_data,
+        alert_trends=alert_trends
     )
 
 
