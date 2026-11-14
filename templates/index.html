@@ -180,11 +180,8 @@
                                 {% for event in recent_events %}
 
                                 <tr>
-
                                     <td>{{ event.time }}</td>
-
                                     <td>{{ event.event }}</td>
-
                                 </tr>
 
                                 {% endfor %}
@@ -194,6 +191,84 @@
                         </table>
 
                     </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Threat Intelligence Metrics -->
+
+    <div class="row mt-5">
+
+        <div class="col-12">
+
+            <h3 class="text-center mb-4">
+                Threat Intelligence Metrics
+            </h3>
+
+        </div>
+
+        <div class="col-md-3">
+
+            <div class="card metric-card">
+
+                <div class="card-body text-center">
+
+                    <h6>Malicious IPs</h6>
+
+                    <h2>{{ threat_intel.malicious_ips }}</h2>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-3">
+
+            <div class="card metric-card">
+
+                <div class="card-body text-center">
+
+                    <h6>Malicious Domains</h6>
+
+                    <h2>{{ threat_intel.malicious_domains }}</h2>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-3">
+
+            <div class="card metric-card">
+
+                <div class="card-body text-center">
+
+                    <h6>Known Hashes</h6>
+
+                    <h2>{{ threat_intel.known_hashes }}</h2>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-3">
+
+            <div class="card metric-card">
+
+                <div class="card-body text-center">
+
+                    <h6>IOC Matches</h6>
+
+                    <h2>{{ threat_intel.ioc_matches }}</h2>
 
                 </div>
 

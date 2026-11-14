@@ -37,10 +37,19 @@ def dashboard():
         }
     ]
 
+    # Threat intelligence metrics summarise known malicious indicators.
+    threat_intel = {
+        "malicious_ips": 243,
+        "malicious_domains": 89,
+        "known_hashes": 164,
+        "ioc_matches": 27
+    }
+
     return render_template(
         "index.html",
         metrics=metrics,
-        recent_events=recent_events
+        recent_events=recent_events,
+        threat_intel=threat_intel
     )
 
 
