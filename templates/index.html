@@ -41,11 +41,8 @@
         <div class="col-md-3">
             <div class="card metric-card">
                 <div class="card-body text-center">
-
                     <h6>Total Alerts</h6>
-
                     <h2>{{ metrics.total_alerts }}</h2>
-
                 </div>
             </div>
         </div>
@@ -53,11 +50,8 @@
         <div class="col-md-3">
             <div class="card metric-card">
                 <div class="card-body text-center">
-
                     <h6>Open Cases</h6>
-
                     <h2>{{ metrics.open_cases }}</h2>
-
                 </div>
             </div>
         </div>
@@ -65,11 +59,8 @@
         <div class="col-md-3">
             <div class="card metric-card">
                 <div class="card-body text-center">
-
                     <h6>Critical Alerts</h6>
-
                     <h2>{{ metrics.critical_alerts }}</h2>
-
                 </div>
             </div>
         </div>
@@ -77,11 +68,8 @@
         <div class="col-md-3">
             <div class="card metric-card">
                 <div class="card-body text-center">
-
                     <h6>Threat Intel Hits</h6>
-
                     <h2>{{ metrics.threat_hits }}</h2>
-
                 </div>
             </div>
         </div>
@@ -160,159 +148,126 @@
 
     </div>
 
+    <!-- Recent Security Events -->
+
+    <div class="row mt-5">
+
+        <div class="col-lg-10 mx-auto">
+
+            <div class="card chart-card">
+
+                <div class="card-body">
+
+                    <h4 class="text-center mb-4">
+                        Recent Security Events
+                    </h4>
+
+                    <div class="table-responsive">
+
+                        <table class="table table-hover">
+
+                            <thead>
+
+                                <tr>
+                                    <th>Time</th>
+                                    <th>Event</th>
+                                </tr>
+
+                            </thead>
+
+                            <tbody>
+
+                                {% for event in recent_events %}
+
+                                <tr>
+
+                                    <td>{{ event.time }}</td>
+
+                                    <td>{{ event.event }}</td>
+
+                                </tr>
+
+                                {% endfor %}
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
 </div>
 
 <script>
 
-// Severity Pie Chart
-
 const severityCtx = document.getElementById("severityChart");
 
 new Chart(severityCtx, {
-
     type: "pie",
-
     data: {
-
-        labels: [
-            "Low",
-            "Medium",
-            "High",
-            "Critical"
-        ],
-
+        labels: ["Low", "Medium", "High", "Critical"],
         datasets: [{
-
-            data: {{ [
-                severity_data["Low"],
-                severity_data["Medium"],
-                severity_data["High"],
-                severity_data["Critical"]
-            ] | tojson }},
-
+            data: [25, 40, 35, 24],
             backgroundColor: [
                 "#28a745",
                 "#ffc107",
                 "#fd7e14",
                 "#dc3545"
-            ],
-
-            borderColor: "#ffffff",
-            borderWidth: 2
-
+            ]
         }]
-
-    },
-
-    options: {
-
-        responsive: true,
-
-        plugins: {
-
-            legend: {
-                position: "bottom"
-            }
-
-        }
-
     }
-
 });
-
-
-// Alert Trends Line Chart
 
 const trendCtx = document.getElementById("trendChart");
 
 new Chart(trendCtx, {
-
     type: "line",
-
     data: {
-
-        labels: {{ alert_trends["days"] | tojson }},
-
+        labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
         datasets: [{
-
             label: "Alerts",
-
-            data: {{ alert_trends["alerts"] | tojson }},
-
+            data: [12, 18, 24, 16, 30, 27, 20],
             borderColor: "#0d6efd",
-
             backgroundColor: "rgba(13,110,253,0.2)",
-
             borderWidth: 3,
-
             fill: true,
-
             tension: 0.3
-
         }]
-
-    },
-
-    options: {
-
-        responsive: true,
-
-        plugins: {
-
-            legend: {
-                display: true
-            }
-
-        }
-
     }
-
 });
-
-
-// Case Status Monitoring
 
 const statusCtx = document.getElementById("statusChart");
 
 new Chart(statusCtx, {
-
     type: "bar",
-
     data: {
-
-        labels: {{ case_status_data["statuses"] | tojson }},
-
+        labels: ["Open", "In Progress", "Escalated", "Closed"],
         datasets: [{
-
             label: "Cases",
-
-            data: {{ case_status_data["counts"] | tojson }},
-
+            data: [8, 5, 3, 12],
             backgroundColor: [
                 "#0d6efd",
                 "#ffc107",
                 "#fd7e14",
                 "#198754"
             ]
-
         }]
-
     },
-
     options: {
-
         responsive: true,
-
         scales: {
-
             y: {
                 beginAtZero: true
             }
-
         }
-
     }
-
 });
 
 </script>
