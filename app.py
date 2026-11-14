@@ -1,4 +1,5 @@
 from flask import Flask, render_template
+import os
 
 app = Flask(__name__)
 
@@ -6,10 +7,17 @@ app = Flask(__name__)
 @app.route("/")
 def dashboard():
 
+    severity_counts = {"Low": 25, "Medium": 40, "High": 35, "Critical": 24}
+    status_counts = {"Open": 8, "In Progress": 5, "Escalated": 3, "Closed": 12}
+    alert_trend = {
+        "labels": ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+        "counts": [12, 18, 24, 16, 30, 27, 20]
+    }
+
     metrics = {
-        "total_alerts": 124,
-        "open_cases": 18,
-        "critical_alerts": 4,
+        "total_alerts": sum(severity_counts.values()),
+        "open_cases": status_counts["Open"],
+        "critical_alerts": severity_counts["Critical"],
         "threat_hits": 11
     }
 
@@ -49,9 +57,13 @@ def dashboard():
         "index.html",
         metrics=metrics,
         recent_events=recent_events,
-        threat_intel=threat_intel
+        threat_intel=threat_intel,
+        severity_counts=severity_counts,
+        status_counts=status_counts,
+        alert_trend=alert_trend
     )
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    debug_mode = os.environ.get("FLASK_DEBUG") == "1"
+    app.run(debug=debug_mode)
